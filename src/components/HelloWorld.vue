@@ -1,79 +1,41 @@
 <template>
-  <v-container class="fill-height">
-    <v-responsive class="d-flex align-center text-center fill-height">
-      <v-img
-        contain
-        height="300"
-        src="src/assets/logo.svg"
-      />
-
-      <div class="text-body-2 font-weight-light mb-n1">Welcome to</div>
-
-      <h1 class="text-h2 font-weight-bold">Vuetify</h1>
-
-      <div class="py-14" />
-
-      <v-row class="d-flex align-center justify-center">
-        <v-col cols="auto">
-          <v-btn
-            href="https://next.vuetifyjs.com/components/all/"
-            min-width="164"
-            rel="noopener noreferrer"
-            target="_blank"
-            variant="text"
-          >
-            <v-icon
-              icon="mdi-view-dashboard"
-              size="large"
-              start
-            />
-
-            Components
-          </v-btn>
-        </v-col>
-
-        <v-col cols="auto">
-          <v-btn
-            color="primary"
-            href="https://next.vuetifyjs.com/introduction/why-vuetify/#feature-guides"
-            min-width="228"
-            rel="noopener noreferrer"
-            size="x-large"
-            target="_blank"
-            variant="flat"
-          >
-            <v-icon
-              icon="mdi-speedometer"
-              size="large"
-              start
-            />
-
-            Get Started
-          </v-btn>
-        </v-col>
-
-        <v-col cols="auto">
-          <v-btn
-            href="https://community.vuetifyjs.com/"
-            min-width="164"
-            rel="noopener noreferrer"
-            target="_blank"
-            variant="text"
-          >
-            <v-icon
-              icon="mdi-account-group"
-              size="large"
-              start
-            />
-
-            Community
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-responsive>
-  </v-container>
+  <div ref='canvas'></div>
 </template>
 
 <script setup lang="ts">
-  //
+// import { Clock, PerspectiveCamera, Scene, WebGLRenderer } from 'three'
+import * as THREE from 'three'
+
+import { ref, onMounted } from 'vue';
+
+
+const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+)
+const light = new THREE.DirectionalLight('hsl(0, 100%, 100%)')
+const geometry = new THREE.BoxGeometry(1, 1, 1)
+const material = new THREE.MeshStandardMaterial({
+    side: THREE.FrontSide,
+    color: 'hsl(0, 100%, 50%)',
+    wireframe: false
+})
+const cube = new THREE.Mesh(geometry, material)
+const axes = new THREE.AxesHelper(5)
+
+const scene = new THREE.Scene()
+scene.add(camera)
+scene.add(light)
+scene.add(cube)
+scene.add(axes)
+
+const renderer = new THREE.WebGLRenderer({ antialias: true })
+
+const canvas = ref<HTMLCanvasElement>(renderer.domElement)
+
+onMounted(() => {
+  canvas?.value?.appendChild(renderer.domElement)
+});
 </script>

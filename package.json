@@ -10,6 +10,8 @@
     "@mdi/font": "7.0.96",
     "roboto-fontface": "*",
     "three": "^0.147.0",
+    "three-forcegraph": "^1.39.8",
+    "three-trackballcontrols": "^0.9.0",
     "vue": "^3.2.38",
     "vuetify": "^3.0.0",
     "webfontloader": "^1.0.0"

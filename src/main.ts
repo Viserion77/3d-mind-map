@@ -6,6 +6,8 @@
 
 // Components
 import App from './App.vue'
+import { setFullBackgroundCompatibility } from 'from_ruby'
+setFullBackgroundCompatibility()
 
 // Composables
 import { createApp } from 'vue'
